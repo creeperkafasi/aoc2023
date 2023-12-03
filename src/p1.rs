@@ -5,6 +5,7 @@ const DIGITS: &'static [&str] = &[
     "seven", "7", "eight", "8", "nine", "9",
 ];
 
+#[allow(dead_code)]
 pub fn answer() {
     let inp = input();
     println!("{}", one(inp.clone()).iter().sum::<u64>());

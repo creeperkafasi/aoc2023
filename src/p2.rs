@@ -2,6 +2,7 @@ use std::fs;
 
 const MAXCUBES: (usize, usize, usize) = (12, 13, 14);
 
+#[allow(dead_code)]
 pub fn answer() {
     let games = input();
     println!("{}", first(games.clone()));
