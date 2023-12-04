@@ -1,5 +1,6 @@
 use std::fs;
 
+#[allow(dead_code)]
 pub fn answer() {
     let games = input();
     println!("First answer:  {}", first(games.clone()));
@@ -50,8 +51,7 @@ fn input() -> Vec<Card> {
     let f = fs::read_to_string("inputs/4.txt").unwrap();
     f.split("\n")
         .map(|line| line.split(":").last().unwrap())
-        .enumerate()
-        .map(|(i, line)| {
+        .map(|line| {
             let mut s = line.split(" | ");
             let winners = s.next();
             let have = s.next();
