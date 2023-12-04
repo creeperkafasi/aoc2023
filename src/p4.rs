@@ -1,6 +1,5 @@
 use std::fs;
 
-#[allow(dead_code)]
 pub fn answer() -> (usize, usize) {
     let games = input();
     (first(games.clone()), second(games.clone()))

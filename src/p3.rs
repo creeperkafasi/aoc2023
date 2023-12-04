@@ -1,6 +1,5 @@
 use std::{fs, vec};
 
-#[allow(dead_code)]
 pub fn answer() -> (usize, usize) {
     let file = fs::read_to_string("inputs/3.txt").unwrap();
 

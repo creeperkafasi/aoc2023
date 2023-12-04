@@ -46,14 +46,15 @@ fn main() {
         for _ in 0..1000 {
             f();
         }
+        let elapsed = tstart.elapsed();
         println!(
             "Day {day} benchmark completed in {:6} seconds",
-            tstart.elapsed().as_secs_f32()
+            elapsed.as_secs_f32()
         );
         println!(
             "   Average: {} ms ({} µs)",
-            tstart.elapsed().as_millis() / 1000,
-            tstart.elapsed().as_micros() / 1000
+            elapsed.as_millis() / 1000,
+            elapsed.as_micros() / 1000
         );
     }
 
