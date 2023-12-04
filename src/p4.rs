@@ -46,8 +46,7 @@ fn second() -> usize {
                         }
                     }
                 }
-
-                dbg!(id);
+                // dbg!(id);
             }
             None => break,
         };
