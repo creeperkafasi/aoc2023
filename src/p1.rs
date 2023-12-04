@@ -6,10 +6,12 @@ const DIGITS: &'static [&str] = &[
 ];
 
 #[allow(dead_code)]
-pub fn answer() {
+pub fn answer() -> (usize, usize) {
     let inp = input();
-    println!("{}", one(inp.clone()).iter().sum::<u64>());
-    println!("{}", two(inp.clone()).iter().sum::<u64>());
+    (
+        one(inp.clone()).iter().sum::<u64>() as usize,
+        two(inp.clone()).iter().sum::<u64>() as usize,
+    )
 }
 
 fn one(inp: Vec<String>) -> Vec<u64> {

@@ -3,10 +3,9 @@ use std::fs;
 const MAXCUBES: (usize, usize, usize) = (12, 13, 14);
 
 #[allow(dead_code)]
-pub fn answer() {
+pub fn answer() -> (usize, usize) {
     let games = input();
-    println!("{}", first(games.clone()));
-    println!("{}", second(games.clone()));
+    (first(games.clone()), second(games.clone()))
 }
 
 fn first(games: Vec<Game>) -> usize {

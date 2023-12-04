@@ -1,7 +1,7 @@
 use std::{fs, vec};
 
 #[allow(dead_code)]
-pub fn answer() {
+pub fn answer() -> (usize, usize) {
     let file = fs::read_to_string("inputs/3.txt").unwrap();
 
     let mut numbers: Vec<Number> = Vec::new();
@@ -54,10 +54,7 @@ pub fn answer() {
         }
     }
 
-    println!(
-        "Sum of all part numbers: {}\nSum of all gear ratios: {}",
-        part_numbers_sum, gear_ratios_sum
-    );
+    (part_numbers_sum, gear_ratios_sum)
 }
 
 #[derive(Clone, Debug)]

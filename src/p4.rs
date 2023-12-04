@@ -1,10 +1,9 @@
 use std::fs;
 
 #[allow(dead_code)]
-pub fn answer() {
+pub fn answer() -> (usize, usize) {
     let games = input();
-    println!("First answer:  {}", first(games.clone()));
-    println!("Second answer: {}", second(games.clone()));
+    (first(games.clone()), second(games.clone()))
 }
 
 fn first(games: Vec<Card>) -> usize {
