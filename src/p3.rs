@@ -38,13 +38,8 @@ pub fn answer() {
         symbol.numbers = numbers
             .iter()
             .filter(|number| {
-                // dbg!(
-                //     number.value,
-
-                //     symbol.x
-                // );
                 ((number.x - 1)..(number.x + number.len + 1)).contains(&(symbol.x))
-                    && (number.y as isize - symbol.y as isize).abs() <= 1
+                    && number.y.abs_diff(symbol.y) <= 1
             })
             .map(|r| *r)
             .collect::<Vec<Number>>()
@@ -60,7 +55,7 @@ pub fn answer() {
     }
 
     println!(
-        "Sum of all part numbers: {}\n Sum of all gear ratios: {}",
+        "Sum of all part numbers: {}\nSum of all gear ratios: {}",
         part_numbers_sum, gear_ratios_sum
     );
 }

@@ -10,33 +10,24 @@ pub fn answer() {
 fn first(games: Vec<Card>) -> usize {
     let mut sum = 0;
     for Card { winners, have, .. } in games {
-        let f = have
-            .iter()
-            .filter(|n| winners.contains(n))
-            .fold(1, |acc, _| acc * 2);
-        sum += f / 2;
+        let f = have.iter().filter(|n| winners.contains(n)).count() as u32;
+        sum += 2i32.pow(f) / 2;
     }
-    sum
+    sum as usize
 }
 
 fn second(games: Vec<Card>) -> usize {
     let mut cardcounts: Vec<usize> = vec![1; games.len()];
 
-    let mut i = 0;
-
-    loop {
-        match games.get(i) {
-            Some(Card { winners, have }) => {
-                let c = have.iter().filter(|n| winners.contains(n)).count();
-                for n in 0..c {
-                    cardcounts[i + 1 + n] += cardcounts[i];
-                }
+    games
+        .iter()
+        .enumerate()
+        .for_each(|(i, Card { winners, have })| {
+            let c = have.iter().filter(|n| winners.contains(n)).count();
+            for n in 0..c {
+                cardcounts[i + 1 + n] += cardcounts[i];
             }
-            None => break,
-        };
-
-        i += 1;
-    }
+        });
 
     cardcounts.iter().sum::<usize>()
 }
