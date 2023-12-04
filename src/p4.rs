@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs, io::Write};
+use std::fs;
 
 pub fn answer() {
     println!("First answer:  {}", first());
@@ -25,12 +25,12 @@ fn first() -> usize {
 }
 
 fn second() -> usize {
-    let mut games = input();
-    let mut cardcounts: HashMap<usize, usize> = HashMap::new();
+    let games = input();
+    let mut cardcounts: Vec<usize> = vec![1; games.len()];
 
-    for Card { id, winners, have } in &games {
-        cardcounts.insert(*id, 1);
-    }
+    // for Card { id, winners, have } in &games {
+    //     cardcounts.insert(*id, 1);
+    // }
 
     let mut i = 0;
 
@@ -38,12 +38,10 @@ fn second() -> usize {
         match games.get(i) {
             Some(Card { id, winners, have }) => {
                 let c = have.iter().filter(|n| winners.contains(n)).count();
-                for _ in 0..*cardcounts.get(id).unwrap() {
-                    if c > 0 {
-                        for n in *id..id + c {
-                            cardcounts.insert(n + 1, cardcounts.get(&(n + 1)).unwrap() + 1);
-                            // games.insert(i + 1, games.iter().find(|c| c.id == n + 1).unwrap().clone());
-                        }
+                for _ in 0..cardcounts[*id - 1] {
+                    for n in *id..id + c {
+                        cardcounts[n] = cardcounts[n] + 1;
+                        // games.insert(i + 1, games.iter().find(|c| c.id == n + 1).unwrap().clone());
                     }
                 }
                 // dbg!(id);
@@ -54,7 +52,7 @@ fn second() -> usize {
         i += 1;
     }
 
-    cardcounts.values().sum::<usize>()
+    cardcounts.iter().sum::<usize>()
     // for (winner, have) in games {
     //     have.iter()
     //         .enumerate()
