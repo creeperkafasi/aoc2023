@@ -30,9 +30,10 @@ struct Hand {
 pub fn answer() -> (usize, usize) {
     let f = fs::read_to_string("inputs/7.txt").unwrap();
     let hands = input(f);
-    dbg!(second(hands));
+    // dbg!(second(hands));
 
-    todo!()
+    (first(hands), 0)
+    // todo!()
 }
 
 fn first(hands: Vec<Hand>) -> usize {
@@ -57,7 +58,7 @@ fn first(hands: Vec<Hand>) -> usize {
 // fn second(hands: Vec<Hand>)-> usize {
 //     for hand in hands {
 //         hand.
-        
+
 //     }
 //     todo!()
 // }
@@ -67,18 +68,19 @@ fn input(f: String) -> Vec<Hand> {
         .map(|line| {
             let (cards, bet) = line.split_once(" ").unwrap();
 
-            let mut counts = cards
+            let counts = cards
                 .chars()
                 .map(|c| cards.chars().filter(|c1| *c1 == c).count())
                 .collect::<Vec<usize>>();
 
-            let sorted_counts =counts.sort();
+            let mut sorted_counts = counts.clone();
+            sorted_counts.sort();
 
             Hand {
                 bet: bet.parse().unwrap(),
                 cards: cards.to_string(),
                 counts: counts,
-                kind: match counts.as_slice() {
+                kind: match sorted_counts.get(..5).unwrap() {
                     [1, 1, 1, 1, 1] => HandKind::HighCard,
                     [1, 1, 1, 2, 2] => HandKind::OnePair,
                     [1, 2, 2, 2, 2] => HandKind::TwoPair,
