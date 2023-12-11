@@ -7,6 +7,8 @@ mod p4;
 mod p5;
 mod p6;
 mod p7;
+mod p8;
+
 
 fn main() {
     let mut day = 0;
@@ -33,6 +35,7 @@ fn main() {
         5 => p5::answer,
         6 => p6::answer,
         7 => p7::answer,
+        8 => p8::answer,
         _ => panic!("Answer for day {day} not found"),
     };
 
