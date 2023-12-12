@@ -1,6 +1,7 @@
 use std::{env::args, time};
 
 mod p1;
+mod p10;
 mod p2;
 mod p3;
 mod p4;
@@ -37,6 +38,7 @@ fn main() {
         7 => p7::answer,
         8 => p8::answer,
         9 => p9::answer,
+        10 => p10::answer,
         _ => panic!("Answer for day {day} not found"),
     };
 
