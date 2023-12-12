@@ -1,4 +1,3 @@
-use itertools::Itertools;
 use std::{borrow::BorrowMut, fs};
 
 pub fn answer() -> (usize, usize) {
@@ -54,14 +53,11 @@ pub fn answer() -> (usize, usize) {
         .flatten()
         .collect::<Vec<_>>();
 
-    (
-        galaxies
-            .iter()
-            .combinations(2)
-            .unique()
-            .map(|g| {
-                let g1 = g.first().unwrap();
-                let g2 = g.last().unwrap();
+    let info = (0..galaxies.len())
+        .map(|i| {
+            let g1 = galaxies.get(i).unwrap();
+            (i..galaxies.len()).map(|j| {
+                let g2 = galaxies.get(j).unwrap();
 
                 let ex = empty_cols
                     .iter()
@@ -73,34 +69,49 @@ pub fn answer() -> (usize, usize) {
                     .filter(|y| (**y).clamp(g1.y.min(g2.y), g1.y.max(g2.y)) == **y)
                     .count();
 
-                g2.x.abs_diff(g1.x) + ex + g2.y.abs_diff(g1.y) + ey
+                (*g1, *g2, ex, ey)
+            }).collect::<Vec<_>>()
+        })
+        .flatten()
+        .collect::<Vec<_>>();
+
+    // let info = galaxies
+    //     .iter()
+    //     .combinations(2)
+    //     .unique()
+    //     .map(|g| {
+    //         let g1 = g.first().unwrap();
+    //         let g2 = g.last().unwrap();
+
+    //         let ex = empty_cols
+    //             .iter()
+    //             .filter(|x| (**x).clamp(g1.x.min(g2.x), g1.x.max(g2.x)) == **x)
+    //             .count();
+
+    //         let ey = empty_rows
+    //             .iter()
+    //             .filter(|y| (**y).clamp(g1.y.min(g2.y), g1.y.max(g2.y)) == **y)
+    //             .count();
+
+    //         (*g1, *g2, ex, ey)
+    //     })
+    //     .collect::<Vec<_>>();
+
+    (
+        info.iter()
+            .map(|(g1, g2, ex, ey)| {
+                g2.x.abs_diff(g1.x) + ex * 1 + g2.y.abs_diff(g1.y) + ey * 1
             })
             .sum(),
-        galaxies
-            .iter()
-            .combinations(2)
-            .unique()
-            .map(|g| {
-                let g1 = g.first().unwrap();
-                let g2 = g.last().unwrap();
-
-                let ex = empty_cols
-                    .iter()
-                    .filter(|x| (**x).clamp(g1.x.min(g2.x), g1.x.max(g2.x)) == **x)
-                    .count();
-
-                let ey = empty_rows
-                    .iter()
-                    .filter(|y| (**y).clamp(g1.y.min(g2.y), g1.y.max(g2.y)) == **y)
-                    .count();
-
+        info.iter()
+            .map(|(g1, g2, ex, ey)| {
                 g2.x.abs_diff(g1.x) + ex * 999_999 + g2.y.abs_diff(g1.y) + ey * 999_999
             })
             .sum(),
     )
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 struct Galaxy {
     x: usize,
     y: usize,
