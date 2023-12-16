@@ -4,6 +4,7 @@ mod p1;
 mod p10;
 mod p11;
 mod p12;
+mod p13;
 mod p2;
 mod p3;
 mod p4;
@@ -43,6 +44,7 @@ fn main() {
         10 => p10::answer,
         11 => p11::answer,
         12 => p12::answer,
+        13 => p13::answer,
         _ => panic!("Answer for day {day} not found"),
     };
 
